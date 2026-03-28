@@ -177,12 +177,12 @@ supervisor-agent/
 │   │   ├── math_tools.py       # calculator, percentage, convert_currency
 │   │   └── writer_tools.py     # generate_text, summarize, format_as_markdown
 │   ├── observability/
-│   │   ├── langfuse_setup.py   # CallbackHandler, invoke_supervisor_with_tracing
-│   │   └── example_traced_run.py
+│   │   └── langfuse_setup.py   # CallbackHandler, invoke_supervisor_with_tracing
 │   └── supervisor.py           # Montagem do grafo
 ├── tests/
-│   ├── test_tools.py           # 11 test cases
-│   └── test_supervisor.py      # 10 test cases
+│   ├── test_tools.py
+│   ├── test_supervisor.py
+│   └── test_example_traced_run.py  # demo PIB/Copa + Langfuse opcional
 ├── .env.example
 ├── .gitignore
 ├── pyproject.toml
