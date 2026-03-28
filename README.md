@@ -58,7 +58,7 @@ Um sistema multi-agent onde um **Supervisor central** (LLM poderoso) recebe quer
 
 ## 🚀 Demo Interativa
 
-**[Clique aqui para ver a demo ao vivo](https://seu-usuario.github.io/Supervisor-Agent/)** — simulação animada com 3 cenários rodando em loop, mostrando partículas viajando entre os agentes e um trace de execução em tempo real.
+**[Clique aqui para ver a demo ao vivo](https://samanosukeh.github.io/Supervisor-Agent/)** — simulação animada com 3 cenários rodando em loop, mostrando partículas viajando entre os agentes e um trace de execução em tempo real.
 
 > **Como ativar:** No repositório GitHub → **Settings → Pages → Source: Deploy from a branch → Branch: `main` → Folder: `/docs`** → Save. Troque `seu-usuario` pela sua username.
 
