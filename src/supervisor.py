@@ -5,23 +5,32 @@ delega a workers especializados e sintetiza a resposta final.
 """
 
 from langchain_mistralai import ChatMistralAI
-from langgraph_supervisor import create_supervisor
+from langgraph_supervisor import create_forward_message_tool, create_supervisor
 
 from src.agents.workers import build_all_workers
-from src.config import SUPERVISOR_MODEL, SUPERVISOR_NAME
+from src.config import (
+    MATH_AGENT,
+    RESEARCH_AGENT,
+    SUPERVISOR_MODEL,
+    SUPERVISOR_NAME,
+    WRITER_AGENT,
+)
 
 
 SUPERVISOR_PROMPT = (
     "Você é um supervisor que gerencia uma equipe de especialistas. "
     "Sua equipe possui:\n"
-    "- research_expert: busca informações na web e extrai conteúdo de URLs\n"
-    "- math_expert: realiza cálculos matemáticos, porcentagens e conversões de moeda\n"
-    "- writer_expert: gera textos, resume conteúdo e formata em markdown\n\n"
+    f"- {RESEARCH_AGENT}: busca informações na web e extrai conteúdo de URLs\n"
+    f"- {MATH_AGENT}: realiza cálculos matemáticos, porcentagens e conversões de moeda\n"
+    f"- {WRITER_AGENT}: gera textos, resume conteúdo e formata em markdown\n\n"
     "Analise cada query do usuário e delegue ao especialista mais adequado. "
     "Se a query envolver múltiplos domínios, delegue sequencialmente — "
     "primeiro colete dados, depois processe, depois redija. "
-    "Quando todos os dados necessários estiverem disponíveis, "
-    "sintetize uma resposta completa e clara para o usuário. "
+    "Quando a resposta de um especialista já for adequada para o usuário (números, "
+    "citações ou texto final), use a ferramenta forward_message com o parâmetro "
+    "from_agent igual ao nome desse especialista para encaminhar a mensagem sem "
+    "reformular — evita perda de detalhes (telefone sem fio). "
+    "Se precisar combinar ou sintetizar várias fontes, responda em texto próprio. "
     "Responda sempre em português brasileiro."
 )
 
@@ -38,6 +47,7 @@ def build_supervisor():
     workflow = create_supervisor(
         agents=workers,
         model=supervisor_model,
+        tools=[create_forward_message_tool(supervisor_name=SUPERVISOR_NAME)],
         prompt=SUPERVISOR_PROMPT,
         output_mode="full_history",
         supervisor_name=SUPERVISOR_NAME,
