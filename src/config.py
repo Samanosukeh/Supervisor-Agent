@@ -1,9 +1,14 @@
 """Centralized configuration for the Supervisor Agent project."""
 
 import os
+from pathlib import Path
 
 from dotenv import load_dotenv
 
+# Carrega `.env` a partir da raiz do repositório (não só do CWD), para que
+# Langfuse/Mistral funcionem ao correr de outra pasta ou pelo depurador.
+_PROJECT_ROOT = Path(__file__).resolve().parents[1]
+load_dotenv(_PROJECT_ROOT / ".env")
 load_dotenv()
 
 # --- LLM (Mistral) ---
