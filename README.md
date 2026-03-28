@@ -13,7 +13,7 @@
                                 │
                                 ▼
                     ┌───────────────────────┐
-                    │     🧠 SUPERVISOR     │
+                    │     🧠 SUPERVISOR    │
                     │    ┌───────────────┐  │
                     │    │ Mistral Large │  │
                     │    │  "Quem faz?"  │  │
@@ -21,11 +21,11 @@
                     └──┬────────┬────────┬──┘
                        │        │        │
               ┌────────┘        │        └────────┐
-              ▼                 ▼                  ▼
+              ▼                 ▼                 ▼
      ┌────────────────┐ ┌──────────────┐ ┌────────────────┐
-     │  🔍 Pesquisador│ │ 🧮 Matemático│ │  ✍️  Escritor   │
+     │ 🔍 Pesquisador│ │ 🧮 Matemático│ │ ✍️  Escritor   │
      │  web_search    │ │ calculator   │ │  generate      │
-     │  fetch_url     │ │ plot_chart   │ │  summarize     │
+     │  fetch_url     │ │ percentage   │ │  summarize     │
      │ Mistral Small  │ │ Mistral Small│ │ Mistral Small  │
      └────────────────┘ └──────────────┘ └────────────────┘
 ```
@@ -34,12 +34,13 @@
 
 <img src="https://img.shields.io/badge/LangGraph-1.0-8b5cf6?style=for-the-badge&logo=python&logoColor=white" alt="LangGraph"/>
 <img src="https://img.shields.io/badge/LangChain-1.0-2dd4bf?style=for-the-badge&logo=chainlink&logoColor=white" alt="LangChain"/>
+<img src="https://img.shields.io/badge/Mistral_AI-FF7000?style=for-the-badge&logo=data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cGF0aCBkPSJNMTIgMkw0IDdWMTdMOCAyMEwxMiAxN0wxNiAyMEwyMCAxN1Y3TDEyIDJaIiBmaWxsPSJ3aGl0ZSIvPjwvc3ZnPg==&logoColor=white" alt="Mistral"/>
 <img src="https://img.shields.io/badge/Langfuse-Tracing-f97316?style=for-the-badge&logo=opentelemetry&logoColor=white" alt="Langfuse"/>
 <img src="https://img.shields.io/badge/Python-3.11+-3776ab?style=for-the-badge&logo=python&logoColor=white" alt="Python"/>
 
 <br>
 
-[Demo Interativa](docs/demo.html) · [Como Funciona](#como-funciona) · [Quick Start](#quick-start) · [Arquitetura](#arquitetura)
+[🚀 Demo Interativa](https://seu-usuario.github.io/Supervisor-Agent/demo.html) · [Como Funciona](#como-funciona) · [Quick Start](#quick-start) · [Arquitetura](#arquitetura)
 
 </div>
 
@@ -53,12 +54,14 @@ Um sistema multi-agent onde um **Supervisor central** (LLM poderoso) recebe quer
 >
 > O supervisor detecta dois domínios (pesquisa + math), delega ao Pesquisador, recebe o dado, delega ao Matemático, recebe o cálculo, e responde com tudo integrado.
 
-## Demo Interativa
+## 🚀 Demo Interativa
 
-Abra o arquivo [`docs/demo.html`](docs/demo.html) no navegador para ver uma simulação animada do fluxo de execução do Supervisor — com partículas mostrando as mensagens entre agentes e um trace de execução em tempo real.
+**[Clique aqui para ver a demo ao vivo](https://seu-usuario.github.io/Supervisor-Agent/demo.html)** — simulação animada com 3 cenários rodando em loop, mostrando partículas viajando entre os agentes e um trace de execução em tempo real.
 
-<div align="center">
-<br>
+> **Como ativar o link acima:** No seu repositório GitHub, vá em **Settings → Pages → Source: Deploy from a branch → Branch: `main` → Folder: `/docs`** e salve. Em ~1 minuto o link fica ativo. Depois troque `seu-usuario` pela sua username do GitHub no link acima.
+
+<details>
+<summary>Preview do trace de execução</summary>
 
 ```
 ╔══════════════════════════════════════════════════════════╗
@@ -73,8 +76,7 @@ Abra o arquivo [`docs/demo.html`](docs/demo.html) no navegador para ver uma simu
 ╚══════════════════════════════════════════════════════════╝
 ```
 
-<br>
-</div>
+</details>
 
 ## Como Funciona
 
@@ -120,30 +122,31 @@ print(result["messages"][-1].content)
 
 ```
 ┌──────────────────────────────────────────────┐
-│                 SUPERVISOR                    │
-│  ┌──────────┐  ┌──────────┐  ┌──────────┐   │
-│  │ Analisa  │→ │ Delega   │→ │ Sintetiza│   │
-│  │ a query  │  │ ao worker│  │ resposta │   │
-│  └──────────┘  └──────────┘  └──────────┘   │
+│                 SUPERVISOR                   │
+│  ┌──────────┐  ┌──────────┐  ┌──────────┐    │
+│  │ Analisa  │→ │ Delega   │→ │ Sintetiza│    │
+│  │ a query  │  │ ao worker│  │ resposta │    │
+│  └──────────┘  └──────────┘  └──────────┘    │
 └──────────┬────────────┬────────────┬─────────┘
            │            │            │
-     ┌─────▼─────┐ ┌────▼────┐ ┌────▼────┐
-     │ Research  │ │  Math   │ │ Writer  │
-     │  Agent   │ │  Agent  │ │  Agent  │
-     ├──────────┤ ├─────────┤ ├─────────┤
-     │web_search│ │calculat.│ │generate │
-     │fetch_url │ │plot     │ │summarize│
-     └──────────┘ └─────────┘ └─────────┘
+     ┌─────▼─────┐ ┌────▼────┐  ┌────▼────┐
+     │ Research  │ │  Math   │  │ Writer  │
+     │  Agent    │ │  Agent  │  │  Agent  │
+     ├───────────┤ ├─────────┤  ├─────────┤
+     │web_search │ │calculat.│  │generate │
+     │fetch_url  │ │percenta.│  │summarize│
+     │           │ │currency │  │markdown │
+     └───────────┘ └─────────┘  └─────────┘
 ```
 
 ### Componentes
 
-| Componente | Modelo | Papel |
-|------------|--------|-------|
-| **Supervisor** | `mistral-large-latest` | Analisa, delega, sintetiza |
-| **Pesquisador** | `mistral-small-latest` | Busca informações na web |
-| **Matemático** | `mistral-small-latest` | Cálculos e visualizações |
-| **Escritor** | `mistral-small-latest` | Gera e resume textos |
+| Componente | Modelo | Papel | Tools |
+|------------|--------|-------|-------|
+| **Supervisor** | `mistral-large-latest` | Analisa, delega, sintetiza | — |
+| **Pesquisador** | `mistral-small-latest` | Busca informações na web | `web_search`, `fetch_url` |
+| **Matemático** | `mistral-small-latest` | Cálculos e conversões | `calculator`, `percentage`, `convert_currency` |
+| **Escritor** | `mistral-small-latest` | Gera e resume textos | `generate_text`, `summarize`, `format_as_markdown` |
 
 ### Observabilidade com Langfuse
 
@@ -151,12 +154,12 @@ Todas as chamadas são instrumentadas com Langfuse:
 
 ```
 Trace: supervisor_invoke
-├── Span: supervisor_decision (mistral-large-latest, 340 tokens)
-├── Span: research_expert (mistral-small-latest, 280 tokens)
-├── Span: supervisor_decision (mistral-large-latest, 190 tokens)
-├── Span: math_expert (mistral-small-latest, 95 tokens)
-└── Span: supervisor_synthesis (mistral-large-latest, 210 tokens)
-     Total: 1,115 tokens | Latência: 4.2s | Custo: $0.008
+├── Span: supervisor_decision (mistral-large, 340 tokens)
+├── Span: research_expert (mistral-small, 280 tokens)
+├── Span: supervisor_decision (mistral-large, 190 tokens)
+├── Span: math_expert (mistral-small, 95 tokens)
+└── Span: supervisor_synthesis (mistral-large, 210 tokens)
+     Total: 1,115 tokens | Latência: 4.2s | Custo: $0.003
 ```
 
 ## Estrutura do Projeto
@@ -174,23 +177,25 @@ supervisor-agent/
 │   ├── config.py               # Configuração centralizada
 │   ├── agents/                 # Definição dos workers
 │   ├── tools/                  # Tools por domínio
+│   │   ├── research_tools.py   # web_search, fetch_url
+│   │   ├── math_tools.py       # calculator, percentage, convert_currency
+│   │   └── writer_tools.py     # generate_text, summarize, format_as_markdown
 │   └── supervisor.py           # Montagem do grafo
 ├── tests/
 │   └── test_supervisor.py      # Testes unitários
 ├── docs/
-│   └── demo.html               # Demo interativa
+│   ├── index.html              # Redirect para demo
+│   └── demo.html               # Demo interativa (GitHub Pages)
 ├── .env.example
 ├── .gitignore
-├── requirements.txt
-├── requirements-dev.txt
-├── pyproject.toml              # Ruff e metadados do projeto
+├── pyproject.toml
 └── README.md
 ```
 
 ## Roadmap
 
 - [x] Setup do ambiente e dependências
-- [ ] Definir tools dos worker agents
+- [x] Definir tools dos worker agents
 - [ ] Criar worker agents com `create_react_agent`
 - [ ] Montar o grafo Supervisor e compilar
 - [ ] Testes unitários
@@ -225,7 +230,7 @@ O Supervisor centraliza o controle. O Swarm (implementado em outro projeto) dist
 <div align="center">
 <br>
 
-**Built with LangGraph** · Parte do portfolio de estudos em Multi-Agent Systems
+**Built with LangGraph + Mistral AI** · Parte do estudo em Multi-Agent Systems
 
 <br>
 </div>
