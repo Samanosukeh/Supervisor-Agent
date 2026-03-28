@@ -13,7 +13,7 @@
                                 │
                                 ▼
                     ┌───────────────────────┐
-                    │     🧠 SUPERVISOR    │
+                    │     🧠 SUPERVISOR     │
                     │    ┌───────────────┐  │
                     │    │ Mistral Large │  │
                     │    │  "Quem faz?"  │  │
