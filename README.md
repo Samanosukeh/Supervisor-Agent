@@ -58,23 +58,23 @@ Um sistema multi-agent onde um **Supervisor central** (LLM poderoso) recebe quer
 
 ## 🚀 Demo Interativa
 
-**[Clique aqui para ver a demo ao vivo](https://seu-usuario.github.io/Supervisor-Agent/demo.html)** — simulação animada com 3 cenários rodando em loop, mostrando partículas viajando entre os agentes e um trace de execução em tempo real.
+**[Clique aqui para ver a demo ao vivo](https://seu-usuario.github.io/Supervisor-Agent/)** — simulação animada com 3 cenários rodando em loop, mostrando partículas viajando entre os agentes e um trace de execução em tempo real.
 
-> **Como ativar o link acima:** No seu repositório GitHub, vá em **Settings → Pages → Source: Deploy from a branch → Branch: `main` → Folder: `/docs`** e salve. Em ~1 minuto o link fica ativo. Depois troque `seu-usuario` pela sua username do GitHub no link acima.
+> **Como ativar:** No repositório GitHub → **Settings → Pages → Source: Deploy from a branch → Branch: `main` → Folder: `/docs`** → Save. Troque `seu-usuario` pela sua username.
 
 <details>
 <summary>Preview do trace de execução</summary>
 
 ```
 ╔══════════════════════════════════════════════════════════╗
-║  [USR] "Pesquise o PIB do Brasil e calcule 15%"         ║
-║  [SUP] Analisando... 2 domínios detectados              ║
-║  [SUP] Delegando → research_expert                      ║
-║  [WRK] web_search("PIB Brasil") → R$ 11.02 tri          ║
-║  [SUP] Delegando → math_expert                          ║
-║  [WRK] calculator("11.02e12 * 0.15") → R$ 1.653 tri     ║
-║  [SUP] Sintetizando resposta final...                   ║
-║  [RES] "O PIB é R$ 11,02 tri. 15% = R$ 1,653 tri."      ║
+║  [USR] "Pesquise o PIB do Brasil e calcule 15%"          ║
+║  [SUP] Analisando... 2 domínios detectados               ║
+║  [SUP] Delegando → research_expert                       ║
+║  [WRK] web_search("PIB Brasil") → R$ 11.02 tri           ║
+║  [SUP] Delegando → math_expert                           ║
+║  [WRK] calculator("11.02e12 * 0.15") → R$ 1.653 tri      ║
+║  [SUP] Sintetizando resposta final...                    ║
+║  [RES] "O PIB é R$ 11,02 tri. 15% = R$ 1,653 tri."       ║
 ╚══════════════════════════════════════════════════════════╝
 ```
 
@@ -168,40 +168,26 @@ Trace: supervisor_invoke
 
 ```
 supervisor-agent/
-├── .claude/                    # Claude Code skills
-│   ├── CLAUDE.md               # Contexto do projeto
-│   ├── settings.json           # Permissões
-│   └── skills/
-│       ├── langgraph-supervisor.md
-│       ├── langfuse-langgraph.md
-│       └── langgraph-testing.md
 ├── src/
 │   ├── config.py               # Configuração centralizada
-│   ├── agents/                 # Definição dos workers
-│   ├── tools/                  # Tools por domínio
+│   ├── agents/
+│   │   └── workers.py          # build_research/math/writer_agent
+│   ├── tools/
 │   │   ├── research_tools.py   # web_search, fetch_url
 │   │   ├── math_tools.py       # calculator, percentage, convert_currency
 │   │   └── writer_tools.py     # generate_text, summarize, format_as_markdown
+│   ├── observability/
+│   │   ├── langfuse_setup.py   # CallbackHandler, invoke_supervisor_with_tracing
+│   │   └── example_traced_run.py
 │   └── supervisor.py           # Montagem do grafo
 ├── tests/
-│   └── test_supervisor.py      # Testes unitários
-├── docs/
-│   ├── index.html              # Redirect para demo
-│   └── demo.html               # Demo interativa (GitHub Pages)
+│   ├── test_tools.py           # 11 test cases
+│   └── test_supervisor.py      # 10 test cases
 ├── .env.example
 ├── .gitignore
 ├── pyproject.toml
 └── README.md
 ```
-
-## Roadmap
-
-- [x] Setup do ambiente e dependências
-- [x] Definir tools dos worker agents
-- [ ] Criar worker agents com `create_react_agent`
-- [ ] Montar o grafo Supervisor e compilar
-- [ ] Testes unitários
-- [ ] Integração com Langfuse
 
 ## Conceitos-Chave
 
